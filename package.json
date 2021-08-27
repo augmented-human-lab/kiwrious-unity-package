@@ -2,7 +2,7 @@
     "name": "com.kiwrious.sdk.unity",
     "version": "1.0.2",
     "displayName": "Kiwrious Development",
-    "type":"tool",
+    "type": "tool",
     "description": "Adding support for kiwrious hardware sensors",
     "unity": "2018.2",
     "unityRelease": "11f1",

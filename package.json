@@ -6,6 +6,9 @@
     "description": "Adding support for kiwrious hardware sensors",
     "unity": "2018.2",
     "unityRelease": "11f1",
+    "dependencies": {
+        "System.Management": "5.0.0"
+    },
     "documentationUrl": "https://example.com/",
     "changelogUrl": "https://example.com/changelog.html",
     "licensesUrl": "https://example.com/licensing.html",

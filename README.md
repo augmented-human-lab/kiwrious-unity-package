@@ -6,7 +6,7 @@ Kiwrious serial reader implementation as a unity package dependency
 ## Step 1
 Update Scripting Runtime Version to `.net 4.x Equivalent` from `Player Settings / Other / Configuration`
 
-## step 2
+## Step 2
 Import Kiwrious package
 
 ### Unity 2020 or later 
@@ -16,7 +16,7 @@ Add below dependency to `Packages/manifest.json`
 ```
 
 ### Unity 2019 or older
-Clone this repository inside `Packages/`
+Clone this repository inside `Packages/` folder
 
 
 # Getting Started

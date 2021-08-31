@@ -13,13 +13,11 @@ public class KiwriousSerialReader : MonoBehaviour {
 
     public Dictionary<string, SensorData> sensorData = new Dictionary<string, SensorData>();
 
-    Text debug_log;
     public bool readersInitiated;
 
     void Awake()
     {
         instance = this;
-        debug_log = GameObject.Find("debug_log").GetComponent<Text>();
         InitiatePlatformReaders();
     }
 
@@ -63,7 +61,7 @@ public class KiwriousSerialReader : MonoBehaviour {
         }
         catch (Exception e)
         {
-            debug_log.text = e.Message;
+            Debug.LogError(e.Message);
         }
     }
 
@@ -87,7 +85,7 @@ public class KiwriousSerialReader : MonoBehaviour {
             }
             catch (Exception ex)
             {
-                //debug_log.text = ex.Message;
+                Debug.LogError(ex.Message);
             }
         }
     }

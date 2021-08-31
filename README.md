@@ -12,7 +12,7 @@ Import Kiwrious package
 ### Unity 2020 or later 
 Add below dependency to `Packages/manifest.json`
 ```json
-"com.kiwrious.sdk.unity": "https://github.com/augmented-human-lab/kiwrious-unity-package.git#1.0.6"
+"com.kiwrious.sdk.unity": "https://github.com/augmented-human-lab/kiwrious-unity-package.git"
 ```
 
 ### Unity 2019 or older

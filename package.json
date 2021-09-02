@@ -1,22 +1,23 @@
 {
     "name": "com.kiwrious.sdk.unity",
-    "version": "1.0.5",
+    "version": "1.0.7",
     "displayName": "Kiwrious Development",
     "type":"tool",
     "description": "Adding support for kiwrious hardware sensors",
     "unity": "2018.2",
     "unityRelease": "11f1",
-    "documentationUrl": "https://example.com/",
+    "documentationUrl": "https://github.com/augmented-human-lab/kiwrious-unity-package/blob/main/README.md",
     "changelogUrl": "https://example.com/changelog.html",
-    "licensesUrl": "https://example.com/licensing.html",
+    "licensesUrl": "https://github.com/augmented-human-lab/kiwrious-unity-package/blob/main/LICENSE.md",
     "keywords": [
         "serial",
         "sensor",
-        "science"
+        "science",
+        "kiwrious"
     ],
     "author": {
-        "name": "Sankha Cooray",
-        "email": "sankha@ahlab.com",
+        "name": "Kiwrious Software",
+        "email": "dev@kiwrious.com",
         "url": "https://www.kiwrious.com"
     }
 }

@@ -1,5 +1,5 @@
 {
-    "name": "com.kiwrious.sdk.unity.runtime",
+    "name": "com.kiwrious.sdk.unity.editor",
     "references": [],
     "optionalUnityReferences": [],
     "includePlatforms": [],

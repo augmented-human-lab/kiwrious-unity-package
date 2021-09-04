@@ -3,7 +3,7 @@
   "version": "1.0.10",
   "displayName": "Kiwrious Unity SDK",
   "type": "tool",
-  "description": "Adding support for kiwrious hardware sensors",
+  "description": "Kiwrious SDK is a enabler for kiwrious sensors. Containing decode methods for all kiwrious sensors. You may get any data from sensors just simply as plug and play. Build system currently supports Windows/mac standalone, android. WebGL support to be added very soon.",
   "unity": "2018.2",
   "unityRelease": "11f1",
   "documentationUrl": "https://github.com/augmented-human-lab/kiwrious-unity-package/blob/main/README.md",

@@ -16,7 +16,8 @@ Add below dependency to `Packages/manifest.json`
 ```
 
 ### Unity 2018 or older
-Clone this repository inside `Packages/` folder
+Older versions of unity does not support resolving package dependency over git url. so you need to clone it manually.
+Simply clone this repository inside `Packages/` folder of your unity project.
 
 
 # Getting Started

@@ -80,7 +80,7 @@ public class AndroidKiwriousReader : IKiwriousReader
     public SensorData GetUVLux()
     {
 		float uv = PluginInstance.Call<float>("getUV");
-		float lux = PluginInstance.Call<float>("getLux");
+		float lux = PluginInstance.Call<long>("getLux");
 		SensorData data = new SensorData
 		{
 			isOnline = getNative("isUvOnline"),

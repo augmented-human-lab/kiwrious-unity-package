@@ -48,7 +48,6 @@ float sensorValue = KiwriousSerialReader.instance.sensorData[sensorName].values[
 # Kiwrious Methods
 
 ## Start Reader
-- Add `Serial Reader` prefab from `Assets/Kiwrious/Prefabs`
 ```csharp
 KiwriousSerialReader.instance.StartSerialReader();
 ```

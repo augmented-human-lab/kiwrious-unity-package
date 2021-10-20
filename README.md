@@ -28,7 +28,7 @@ Simply clone this repository inside `Packages/` folder of your unity project.
 
 All sensor values are processed as float values.
 ```csharp
-KiwriousSerialReader.instance.sensorData[sensorName].values[propertyName];
+float sensorValue = KiwriousSerialReader.instance.sensorData[sensorName].values[observableName];
 ```
 
 ```csharp
@@ -44,6 +44,17 @@ KiwriousSerialReader.instance.sensorData[sensorName].values[propertyName];
   KiwriousSerialReader.instance.sensorData["THERMAL2"].values["d_temperature"]
   KiwriousSerialReader.instance.sensorData["THERMAL2"].values["a_temperature"]
   KiwriousSerialReader.instance.sensorData["CARDIO"].values["heart_rate"]
+```
+# Kiwrious Methods
+
+## Start Reader
+- Add `Serial Reader` prefab from `Assets/Kiwrious/Prefabs`
+```csharp
+KiwriousSerialReader.instance.StartSerialReader();
+```
+## Stop Reader
+```csharp
+KiwriousSerialReader.instance.StopSerialReader();
 ```
 
 # Android build

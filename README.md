@@ -23,6 +23,12 @@ Simply clone this repository inside `Packages/` folder of your unity project.
 # Getting Started
 
 - Add `Kiwrious Reader` prefab into your unity scene from `Packages/kiwrious-unity-package/Prefabs/` 
+- Plug any kiwrious sensor and observe Serial Reader Component of the Kiwrious Reader prefab
+
+# Features
+- Supports multi sensor simultaneous reading
+- plug and play (default)
+- connect and read on demand (set AutoStart=false from Serial Reader Component)
 
 # Read Values
 

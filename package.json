@@ -1,25 +1,25 @@
 {
-  "name": "com.kiwrious.sdk.unity",
-  "version": "1.0.11",
-  "displayName": "Kiwrious Unity SDK",
-  "type": "tool",
-  "description": "Kiwrious SDK is a enabler for kiwrious sensors. Containing decode methods for all kiwrious sensors. You may get any data from sensors just simply as plug and play. Build system currently supports Windows/mac standalone, android. WebGL support to be added very soon.",
-  "unity": "2018.2",
-  "unityRelease": "11f1",
-  "documentationUrl": "https://github.com/augmented-human-lab/kiwrious-unity-package/blob/main/README.md",
-  "changelogUrl": "https://example.com/changelog.html",
-  "licensesUrl": "https://github.com/augmented-human-lab/kiwrious-unity-package/blob/main/LICENSE.md",
-  "keywords": [
-    "serial",
-    "sensor",
-    "science",
-    "kiwrious"
-  ],
-  "author": {
-    "name": "Kiwrious Software",
-    "email": "dev@kiwrious.com",
-    "url": "https://www.kiwrious.com"
-  },
-  "enableLockFile": true,
-  "resolutionStrategy": "highest"
+    "name": "com.kiwrious.sdk.unity",
+    "version": "1.0.12",
+    "displayName": "Kiwrious Unity SDK",
+    "type": "tool",
+    "description": "Kiwrious SDK is a enabler for kiwrious sensors. Containing decode methods for all kiwrious sensors. You may get any data from sensors just simply as plug and play. Build system currently supports Windows/mac standalone, android. WebGL support to be added very soon.",
+    "unity": "2018.2",
+    "unityRelease": "11f1",
+    "documentationUrl": "https://github.com/augmented-human-lab/kiwrious-unity-package/blob/main/README.md",
+    "changelogUrl": "https://example.com/changelog.html",
+    "licensesUrl": "https://github.com/augmented-human-lab/kiwrious-unity-package/blob/main/LICENSE.md",
+    "keywords": [
+        "serial",
+        "sensor",
+        "science",
+        "kiwrious"
+    ],
+    "author": {
+        "name": "Kiwrious Software",
+        "email": "dev@kiwrious.com",
+        "url": "https://www.kiwrious.com"
+    },
+    "enableLockFile": true,
+    "resolutionStrategy": "highest"
 }

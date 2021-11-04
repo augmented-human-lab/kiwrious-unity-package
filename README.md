@@ -27,8 +27,8 @@ Simply clone this repository inside `Packages/` folder of your unity project.
 
 # Features
 - Supports multi sensor simultaneous reading
-- plug and play (default)
-- connect and read on demand (set AutoStart=false from Serial Reader Component)
+- Plug and play (default)
+- Connect and read on demand (set `AutoStart=false` from Serial Reader Component)
 
 # Read Values
 

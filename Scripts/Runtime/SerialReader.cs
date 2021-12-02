@@ -35,6 +35,7 @@ public class SerialReader : MonoBehaviour{
 	public float a_temperature;
 	public float d_temperature;
 	public float heart_rate;
+	public byte[] rawData = new byte[26];
 
 	public bool listen;
 	public bool autoStart;
@@ -75,6 +76,10 @@ public class SerialReader : MonoBehaviour{
 		if (autoStart) {
 			StartSerialReader();
 		}
+	}
+
+	public List<KiwriousSensor> GetConnectedKiwriousSensors() {
+		return connectedKiwriousSensors;
 	}
 
 	public void StartSerialReader() {
@@ -228,10 +233,7 @@ public class SerialReader : MonoBehaviour{
 				{
 					packet[i] = (byte)stream.BaseStream.ReadByte();
 				}
-				string temp = "";
-				foreach (byte b in packet) {
-					temp += $"{b} ";
-				}
+				rawData = packet;
 				decodeMethods[sensorType](port, packet);
 			}
 			catch (Exception ex) {
@@ -313,6 +315,10 @@ public class SerialReader : MonoBehaviour{
 		StopSerialReader();
 	}
 
+	public byte[] GetSensorRawData() {
+		return rawData;
+	}
+
 	#region Decode methods
 	private void DecodeConductivity(string port, byte[] data)
 	{
@@ -351,7 +357,6 @@ public class SerialReader : MonoBehaviour{
 		color_v *= 100;
 	}
 
-	public byte[] tempx = new byte[26];
 	private void DecodeCardio(string port, byte[] data) {
 		uint data0 = BitConverter.ToUInt32(data.Skip(6).Take(4).ToArray(), 0);
 		uint data1 = BitConverter.ToUInt32(data.Skip(10).Take(4).ToArray(), 0);
@@ -359,22 +364,16 @@ public class SerialReader : MonoBehaviour{
 		uint data3 = BitConverter.ToUInt32(data.Skip(18).Take(4).ToArray(), 0);
 		heart_rate = 72; // for testing;
 		// implement decode code here...
-		//tempx[0] = data0;
-		//tempx[1] = data1;
-		//tempx[2] = data2;
-		//tempx[3] = data3;
 	}
 
 	private void DecodeThermal(string port, byte[] data)
 	{
-		tempx = data;
 		d_temperature = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0) / 100;
 		a_temperature = BitConverter.ToInt16(data.Skip(8).Take(2).ToArray(), 0) / 100;
 	}
 
 	private void DecodeThermal2(string port, byte[] data)
 	{
-		tempx = data;
 		a_temperature = BitConverter.ToInt16(data.Skip(6).Take(2).ToArray(), 0) / 100;
 		ushort x = BitConverter.ToUInt16(data.Skip(8).Take(2).ToArray(), 0);
 		float a = BitConverter.ToSingle(data.Skip(10).Take(4).ToArray(), 0);

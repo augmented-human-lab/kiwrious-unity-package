@@ -128,4 +128,9 @@ public class WindowsKiwriousReader : IKiwriousReader {
         };
         return data;
     }
+
+    public byte[] GetRawData()
+    {
+        return SerialReader.instance.rawData;
+    }
 }

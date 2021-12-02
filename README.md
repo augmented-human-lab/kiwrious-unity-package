@@ -32,6 +32,11 @@ Simply clone this repository inside `Packages/` folder of your unity project.
 
 # Read Values
 
+* Get raw value
+```csharp
+KiwriousSerialReader.instance.sensorRawData
+```
+
 All sensor values are processed as float values.
 ```csharp
 float sensorValue = KiwriousSerialReader.instance.sensorData[sensorName].values[observableName];

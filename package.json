@@ -1,6 +1,6 @@
 {
     "name": "com.kiwrious.sdk.unity",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "displayName": "Kiwrious Unity SDK",
     "type": "tool",
     "description": "Kiwrious SDK is a enabler for kiwrious sensors. Containing decode methods for all kiwrious sensors. You may get any data from sensors just simply as plug and play. Build system currently supports Windows/mac standalone, android. WebGL support to be added very soon.",

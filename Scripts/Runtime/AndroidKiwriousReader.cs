@@ -2,12 +2,13 @@
 using kiwrious;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static Assets.Kiwrious.Scripts.Constants;
 
 public class AndroidKiwriousReader : IKiwriousReader
 {
 
-    private const string pluginName = "org.ahlab.kiwrious.android.Plugin";
+    private const string pluginName = "org.ahlab.kiwrious.android.KiwriousReader";
     private static AndroidJavaClass _pluginClass;
     private static AndroidJavaObject _pluginInstance;
 
@@ -45,6 +46,14 @@ public class AndroidKiwriousReader : IKiwriousReader
 
 	public AndroidKiwriousReader() {
 		Debug.Log("Android reader initiated");
+	}
+
+	public byte[] GetRawData() {
+		AndroidJavaObject obj = PluginInstance.Call<AndroidJavaObject>("getRawValues");
+		if (obj.GetRawObject().ToInt32() != 0) {
+			return AndroidJNIHelper.ConvertFromJNIArray<byte[]>(obj.GetRawObject());
+		}
+		return null;
 	}
 
 	public SensorData GetConductivity()

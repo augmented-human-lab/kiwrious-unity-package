@@ -9,7 +9,7 @@ Update Scripting Runtime Version to `.net 4.x Equivalent` from `Player Settings 
 ## Step 2
 Import Kiwrious package
 
-### Unity 2019 or later 
+### Unity 2019 or later
 Add below dependency to `Packages/manifest.json`
 ```json
 "com.kiwrious.sdk.unity": "https://github.com/augmented-human-lab/kiwrious-unity-package.git"
@@ -22,7 +22,7 @@ Simply clone this repository inside `Packages/` folder of your unity project.
 
 # Getting Started
 
-- Add `Kiwrious Reader` prefab into your unity scene from `Packages/kiwrious-unity-package/Prefabs/` 
+- Add `Kiwrious Reader` prefab into your unity scene from `Packages/kiwrious-unity-package/Prefabs/`
 - Plug any kiwrious sensor and observe Serial Reader Component of the Kiwrious Reader prefab
 
 # Features
@@ -86,6 +86,3 @@ KiwriousSerialReader.instance.StopSerialReader();
    </application>
 </manifest>
 ```
-
-
-

@@ -13,6 +13,8 @@ public class KiwriousSerialReader : MonoBehaviour {
 
     public Dictionary<string, SensorData> sensorData = new Dictionary<string, SensorData>();
 
+    public byte[] sensorRawData;
+
     public bool readersInitiated;
 
     void Awake()
@@ -27,6 +29,10 @@ public class KiwriousSerialReader : MonoBehaviour {
 
     public void StopSerialReader() {
         SerialReader.instance.StopSerialReader();
+    }
+
+    public void GetSensorRawData() {
+        SerialReader.instance.GetSensorRawData();
     }
 
     private void InitiatePlatformReaders() {
@@ -78,6 +84,7 @@ public class KiwriousSerialReader : MonoBehaviour {
         if (readersInitiated) {
             try
             {
+                sensorRawData = kiwriousReader.GetRawData();
                 sensorData[GetSensorName(SENSOR_TYPE.EC)] = kiwriousReader.GetConductivity();
                 sensorData[GetSensorName(SENSOR_TYPE.VOC)] = kiwriousReader.GetVOC();
                 sensorData[GetSensorName(SENSOR_TYPE.LIGHT)] = kiwriousReader.GetUVLux();

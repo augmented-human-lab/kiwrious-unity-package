@@ -56,12 +56,16 @@ public class AndroidKiwriousReader : IKiwriousReader
 		return null;
 	}
 
+	public string GetConnectedSensorName() {
+		return PluginInstance.Call<string>("getConnectedSensorName");
+	}
+
 	public SensorData GetConductivity()
 	{
 		float conductivity = PluginInstance.Call<float>("getConductivity");
 		SensorData data = new SensorData
 		{
-			isOnline = getNative("isConductivityOnline"),
+			isOnline = PluginInstance.Call<bool>("isConductivityOnline"),
 			status = (int)SENSOR_STATUS.READY,
 			values = new Dictionary<string, float>
 		{
@@ -76,7 +80,7 @@ public class AndroidKiwriousReader : IKiwriousReader
 		float voc = PluginInstance.Call<int>("getVoc");
 		SensorData data = new SensorData
 		{
-			isOnline = getNative("isVocOnline"),
+			isOnline = PluginInstance.Call<bool>("isVocOnline"),
 			status = (int)SENSOR_STATUS.READY,
 			values = new Dictionary<string, float>
 		{
@@ -92,7 +96,7 @@ public class AndroidKiwriousReader : IKiwriousReader
 		float lux = PluginInstance.Call<long>("getLux");
 		SensorData data = new SensorData
 		{
-			isOnline = getNative("isUvOnline"),
+			isOnline = PluginInstance.Call<bool>("isUvOnline"),
 			status = (int)SENSOR_STATUS.READY,
 			values = new Dictionary<string, float>
 		{
@@ -109,7 +113,7 @@ public class AndroidKiwriousReader : IKiwriousReader
 		float temperature = PluginInstance.Call<float>("getTemperature");
 		SensorData data = new SensorData
 		{
-			isOnline = getNative("isHumidityOnline"),
+			isOnline = PluginInstance.Call<bool>("isHumidityOnline"),
 			status = (int)SENSOR_STATUS.READY,
 			values = new Dictionary<string, float>
 		{
@@ -127,7 +131,7 @@ public class AndroidKiwriousReader : IKiwriousReader
 
 		SensorData data = new SensorData
 		{
-			isOnline = getNative("isBodyTempOnline"),
+			isOnline = PluginInstance.Call<bool>("isBodyTempOnline"),
 			status = (int)SENSOR_STATUS.READY,
 			values = new Dictionary<string, float>
 		{
@@ -144,7 +148,7 @@ public class AndroidKiwriousReader : IKiwriousReader
 		float infrared = PluginInstance.Call<int>("getInfraredTemperature");
 		SensorData data = new SensorData
 		{
-			isOnline = getNative("isBodyTempOnline"),
+			isOnline = PluginInstance.Call<bool>("isBodyTempOnline"),
 			status = (int)SENSOR_STATUS.READY,
 			values = new Dictionary<string, float>
 		{
@@ -159,7 +163,7 @@ public class AndroidKiwriousReader : IKiwriousReader
 		float hr = PluginInstance.Call<int>("getHeartRate");
 		SensorData data = new SensorData
 		{
-			isOnline = getNative("isHeartRateOnline"),
+			isOnline = PluginInstance.Call<bool>("isHeartRateOnline"),
 			status = (int)SENSOR_STATUS.READY,
 			values = new Dictionary<string, float>
 		{
@@ -176,7 +180,7 @@ public class AndroidKiwriousReader : IKiwriousReader
         float color_v = PluginInstance.Call<int>("getB");
         SensorData data = new SensorData
         {
-            isOnline = getNative("isColorOnline"),
+            isOnline = PluginInstance.Call<bool>("isColorOnline"),
             status = (int)SENSOR_STATUS.READY,
             values = new Dictionary<string, float>
         {

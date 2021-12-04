@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
+
+//using UnityEditor.Hardware;
+
 using UnityEngine;
 using static Assets.Kiwrious.Scripts.Constants;
 
@@ -20,7 +23,7 @@ public class SerialReader : MonoBehaviour{
 	private const int PACKET_FOOTER_BYTE = 0X0b;
 
 
-	public Dictionary<SENSOR_TYPE, bool> sensorEvents = new Dictionary<SENSOR_TYPE, bool>();
+	public Dictionary<SENSOR_TYPE, bool> kiwriousSensorStatus = new Dictionary<SENSOR_TYPE, bool>();
 
 	public float voc1;
 	public float voc2;
@@ -54,17 +57,22 @@ public class SerialReader : MonoBehaviour{
 
 	void Awake() {
 		instance = this;
+		//Usb.DevicesChanged += onUSBConnectDisconenct;
 	}
 
+	// https://stephenhodgson.github.io/UnityCsReference/api/UnityEditor.Hardware.Usb.OnDevicesChangedHandler.html
+	//void onUSBConnectDisconenct(UsbDevice[] usbDevices) {
+	//	UsbDevice[] kiwriousDevices = Array.FindAll(usbDevices, d => d.vendorId == 1027 || d.vendorId == 1240);
+	//	foreach (UsbDevice u in kiwriousDevices) {
+	//		Debug.Log(u.name);
+	//	}
+	//}
+
     void Start () {
-        sensorEvents[SENSOR_TYPE.EC] = false;
-        sensorEvents[SENSOR_TYPE.CLIMATE] = false;
-        sensorEvents[SENSOR_TYPE.VOC] = false;
-        sensorEvents[SENSOR_TYPE.LIGHT] = false;
-        sensorEvents[SENSOR_TYPE.COLOR] = false;
-		sensorEvents[SENSOR_TYPE.CARDIO] = false;
-		sensorEvents[SENSOR_TYPE.THERMAL] = false;
-		sensorEvents[SENSOR_TYPE.THERMAL2] = false;
+		foreach (SENSOR_TYPE sensorType in Enum.GetValues(typeof(SENSOR_TYPE)))
+		{
+			kiwriousSensorStatus[sensorType] = false;
+		}
 		decodeMethods[SENSOR_TYPE.EC] = DecodeConductivity;
         decodeMethods[SENSOR_TYPE.CLIMATE] = DecodeHumidity;
         decodeMethods[SENSOR_TYPE.LIGHT] = DecodeUV;
@@ -113,24 +121,25 @@ public class SerialReader : MonoBehaviour{
 	IEnumerator ScanPorts() {
 		while (listen) {
 			yield return new WaitForSeconds(1);
-			string[] ports = SerialPort.GetPortNames();
-			if (ports.Length > connectedSerialPorts.Length)
-			{
-				string[] newDevices = ports.Where(p => !connectedSerialPorts.Contains(p)).ToArray();
-				foreach (string port in newDevices)
-				{
-					ProcessConnectedSerialDevice(port);
-				}
-			}
-			else if(ports.Length < connectedSerialPorts.Length) {
-				string[] removedDevices = connectedSerialPorts.Where(p => !ports.Contains(p)).ToArray();
-				foreach (string port in removedDevices)
-				{
-					ProcessDisconnectedSerialDevice(port);
-				}
-			}
-			connectedSerialPorts = ports;
-		}
+            string[] ports = SerialPort.GetPortNames();
+            if (ports.Length > connectedSerialPorts.Length)
+            {
+                string[] newDevices = ports.Where(p => !connectedSerialPorts.Contains(p)).ToArray();
+                foreach (string port in newDevices)
+                {
+                    ProcessConnectedSerialDevice(port);
+                }
+            }
+            else if (ports.Length < connectedSerialPorts.Length)
+            {
+                string[] removedDevices = connectedSerialPorts.Where(p => !ports.Contains(p)).ToArray();
+                foreach (string port in removedDevices)
+                {
+                    ProcessDisconnectedSerialDevice(port);
+                }
+            }
+            connectedSerialPorts = ports;
+        }
 	}
 
 	private void ProcessConnectedSerialDevice(string port) {
@@ -170,7 +179,7 @@ public class SerialReader : MonoBehaviour{
 			KiwriousSensor disconnectedSensor = connectedKiwriousSensors.Where(s => s.Port == port).FirstOrDefault();
 			Debug.Log($"{disconnectedSensor.Name} sensor disconnected!");
 			connectedKiwriousSensors.Remove(disconnectedSensor);
-			sensorEvents[(SENSOR_TYPE)disconnectedSensor.Type] = false;
+			kiwriousSensorStatus[(SENSOR_TYPE)disconnectedSensor.Type] = false;
 			SerialPort activePort = activePorts.Where(s => s.PortName == port).FirstOrDefault();
 			activePort.Close();
 			activePorts.Remove(activePort);
@@ -184,9 +193,10 @@ public class SerialReader : MonoBehaviour{
 	}
 
 	private void ReadSensor(string port) {
+		
 		Debug.Log($"Read {port}");
 		SENSOR_TYPE sensorType = (SENSOR_TYPE)GetSensorTypeByPort(port);
-		sensorEvents[sensorType] = (true);
+		kiwriousSensorStatus[sensorType] = (true);
 		SerialPort stream = new SerialPort(port, BAUD_RATE);
 		activePorts.Add(stream);
 		if (!stream.IsOpen)
@@ -196,6 +206,7 @@ public class SerialReader : MonoBehaviour{
 		int attempts = 0;
 		bool headerFound = false;
 		List<int> buffer = new List<int>();
+
 		while (stream.IsOpen)
 		{
 			// new reading method
@@ -237,7 +248,7 @@ public class SerialReader : MonoBehaviour{
 				decodeMethods[sensorType](port, packet);
 			}
 			catch (Exception ex) {
-				Debug.LogError(ex.Message);
+				Debug.LogWarning(ex.Message);
 				stream.Close();
 			}
 		}
@@ -298,15 +309,16 @@ public class SerialReader : MonoBehaviour{
         }
 
         Debug.Log("Identify done");
-		if (Enum.IsDefined(typeof(SENSOR_TYPE), (SENSOR_TYPE)data[2]))
+		int KIWRIOUS_SENSOR_TYPE_INDEX = 2;
+		if (Enum.IsDefined(typeof(SENSOR_TYPE), (SENSOR_TYPE)data[KIWRIOUS_SENSOR_TYPE_INDEX]))
 		{
-			string sensorName = Enum.GetName(typeof(SENSOR_TYPE), data[2]);
-			kiwriousSensorRegistry.Add(new KiwriousSensor(sensorName, data[2], port));
-			connectedKiwriousSensors.Add(new KiwriousSensor(sensorName, data[2], port));
+			string sensorName = Enum.GetName(typeof(SENSOR_TYPE), data[KIWRIOUS_SENSOR_TYPE_INDEX]);
+			kiwriousSensorRegistry.Add(new KiwriousSensor(sensorName, data[KIWRIOUS_SENSOR_TYPE_INDEX], port));
+			connectedKiwriousSensors.Add(new KiwriousSensor(sensorName, data[KIWRIOUS_SENSOR_TYPE_INDEX], port));
 			Debug.Log($"{sensorName} sensor connected!");
 		}
 		else {
-			Debug.Log($"type [{data?[2]} is not registered as a kiwrious sensor]");
+			Debug.Log($"type [{data?[KIWRIOUS_SENSOR_TYPE_INDEX]} is not registered as a kiwrious sensor]");
 		};
         serialPort.Close();
 	}

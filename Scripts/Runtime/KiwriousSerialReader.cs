@@ -15,6 +15,8 @@ public class KiwriousSerialReader : MonoBehaviour {
 
     public byte[] sensorRawData;
 
+    public string connectedSensorName;
+
     public bool readersInitiated;
 
     void Awake()
@@ -85,6 +87,7 @@ public class KiwriousSerialReader : MonoBehaviour {
             try
             {
                 sensorRawData = kiwriousReader.GetRawData();
+                connectedSensorName = kiwriousReader.GetConnectedSensorName();
                 sensorData[GetSensorName(SENSOR_TYPE.EC)] = kiwriousReader.GetConductivity();
                 sensorData[GetSensorName(SENSOR_TYPE.VOC)] = kiwriousReader.GetVOC();
                 sensorData[GetSensorName(SENSOR_TYPE.LIGHT)] = kiwriousReader.GetUVLux();

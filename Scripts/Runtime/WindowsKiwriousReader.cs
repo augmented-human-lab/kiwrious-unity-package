@@ -11,6 +11,10 @@ public class WindowsKiwriousReader : IKiwriousReader {
         Debug.Log("Windows reader initiated");
     }
 
+    public string GetConnectedSensorName() {
+        return "Android only";
+    }
+
     public SensorData GetConductivity()
     {
         SensorData data = new SensorData

@@ -6,7 +6,9 @@ using System.IO.Ports;
 using System.Linq;
 using System.Threading;
 
-//using UnityEditor.Hardware;
+#if UNITY_STANDALONE || UNITY_EDITOR
+using UnityEditor.Hardware;
+#endif
 
 using UnityEngine;
 using static Assets.Kiwrious.Scripts.Constants;
@@ -57,16 +59,22 @@ public class SerialReader : MonoBehaviour{
 
 	void Awake() {
 		instance = this;
-		//Usb.DevicesChanged += onUSBConnectDisconenct;
-	}
+#if UNITY_STANDALONE || UNITY_EDITOR
+		Usb.DevicesChanged += onUSBConnectDisconenct;
+#endif
+    }
 
 	// https://stephenhodgson.github.io/UnityCsReference/api/UnityEditor.Hardware.Usb.OnDevicesChangedHandler.html
-	//void onUSBConnectDisconenct(UsbDevice[] usbDevices) {
-	//	UsbDevice[] kiwriousDevices = Array.FindAll(usbDevices, d => d.vendorId == 1027 || d.vendorId == 1240);
-	//	foreach (UsbDevice u in kiwriousDevices) {
-	//		Debug.Log(u.name);
-	//	}
-	//}
+#if UNITY_STANDALONE || UNITY_EDITOR
+	void onUSBConnectDisconenct(UsbDevice[] usbDevices)
+    {
+        UsbDevice[] kiwriousDevices = Array.FindAll(usbDevices, d => d.vendorId == 1027 || d.vendorId == 1240);
+        foreach (UsbDevice u in kiwriousDevices)
+        {
+            Debug.Log(u.name);
+        }
+    }
+#endif
 
     void Start () {
 		foreach (SENSOR_TYPE sensorType in Enum.GetValues(typeof(SENSOR_TYPE)))
@@ -331,7 +339,7 @@ public class SerialReader : MonoBehaviour{
 		return rawData;
 	}
 
-	#region Decode methods
+#region Decode methods
 	private void DecodeConductivity(string port, byte[] data)
 	{
 		var data0f = BitConverter.ToUInt16(data.Skip(6).Take(2).ToArray(), 0);
@@ -399,9 +407,9 @@ public class SerialReader : MonoBehaviour{
 		voc1 = BitConverter.ToUInt16(data.Skip(6).Take(2).ToArray(), 0);
 		voc2 = BitConverter.ToUInt16(data.Skip(8).Take(2).ToArray(), 0);
 	}
-	#endregion
+#endregion
 
-	#region Helper methods
+#region Helper methods
 	private int GetSensorTypeByPort(string port)
 	{
 		KiwriousSensor sensor = kiwriousSensorRegistry.Where(s => s.Port == port).FirstOrDefault();
@@ -416,7 +424,7 @@ public class SerialReader : MonoBehaviour{
 	{
 		return kiwriousSensorRegistry.Any(s => s.Port == port) && connectedKiwriousSensors.Any(s => s.Port == port);
 	}
-	#endregion
+#endregion
 
 }
 

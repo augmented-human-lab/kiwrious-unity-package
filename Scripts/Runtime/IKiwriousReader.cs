@@ -2,28 +2,28 @@
 
 namespace kiwrious
 {
-    public interface IKiwriousReader
-	{
+  public interface IKiwriousReader
+  {
 
-		byte[] GetRawData();
+    byte[] GetRawData();
 
-		string GetConnectedSensorName();
+    string GetConnectedSensorName();
 
-		SensorData GetConductivity();
+    SensorData GetConductivity();
 
-		SensorData GetVOC();
+    SensorData GetVOC();
 
-		SensorData GetUVLux();
+    SensorData GetUVLux();
 
-		SensorData GetHumidityTemperature();
+    SensorData GetHumidityTemperature();
 
-		SensorData GetColor();
+    SensorData GetColor();
 
-		SensorData GetHeartRate();
+    SensorData GetHeartRate();
 
-		SensorData GetBodyTemperature();
+    SensorData GetBodyTemperature();
 
-		SensorData GetBodyTemperature2();
+    SensorData GetBodyTemperature2();
 
-	}
+  }
 }

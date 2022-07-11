@@ -50,18 +50,11 @@ public class KiwriousSerialReader : MonoBehaviour
         case RuntimePlatform.Android:
           kiwriousReader = new AndroidKiwriousReader();
           break;
+
         case RuntimePlatform.WindowsEditor:
-          kiwriousReader = new WindowsKiwriousReader();
-          break;
         case RuntimePlatform.WindowsPlayer:
-          kiwriousReader = new WindowsKiwriousReader();
-          break;
         case RuntimePlatform.OSXEditor:
-          kiwriousReader = new WindowsKiwriousReader();
-          break;
         case RuntimePlatform.OSXPlayer:
-          kiwriousReader = new WindowsKiwriousReader();
-          break;
         case RuntimePlatform.WebGLPlayer:
           kiwriousReader = new WindowsKiwriousReader();
           break;
@@ -69,11 +62,13 @@ public class KiwriousSerialReader : MonoBehaviour
         default:
           throw new Exception($"Platform {Application.platform} is not supported");
       }
+
       foreach (SENSOR_TYPE sensorType in Enum.GetValues(typeof(SENSOR_TYPE)))
       {
         // initiate sensor data objects for each sensor
         sensorData[GetSensorName(sensorType)] = new SensorData();
       }
+
       readersInitiated = true;
     }
     catch (Exception e)
@@ -93,7 +88,7 @@ public class KiwriousSerialReader : MonoBehaviour
     {
       try
       {
-        sensorRawData = kiwriousReader.GetRawData();
+        //sensorRawData = kiwriousReader.GetRawData();
         connectedSensorName = kiwriousReader.GetConnectedSensorName();
         sensorData[GetSensorName(SENSOR_TYPE.EC)] = kiwriousReader.GetConductivity();
         sensorData[GetSensorName(SENSOR_TYPE.VOC)] = kiwriousReader.GetVOC();

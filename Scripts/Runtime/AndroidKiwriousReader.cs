@@ -1,5 +1,6 @@
 ﻿using Assets.Kiwrious.Scripts;
 using kiwrious;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,13 +53,20 @@ public class AndroidKiwriousReader : IKiwriousReader
 
   public byte[] GetRawData()
   {
+
     AndroidJavaObject obj = PluginInstance.Call<AndroidJavaObject>("getRawValues");
     if (obj.GetRawObject().ToInt32() != 0)
     {
-      return AndroidJNIHelper.ConvertFromJNIArray<byte[]>(obj.GetRawObject());
+      var sbyteArray = AndroidJNIHelper.ConvertFromJNIArray<SByte[]>(obj.GetRawObject());
+
+      byte[] unsigned = new byte[sbyteArray.Length];
+      Buffer.BlockCopy(sbyteArray, 0, unsigned, 0, sbyteArray.Length);
+
+      return unsigned;
     }
     return null;
   }
+
 
   public string GetConnectedSensorName()
   {
@@ -116,6 +124,7 @@ public class AndroidKiwriousReader : IKiwriousReader
   {
     float humidity = PluginInstance.Call<float>("getHumidity");
     float temperature = PluginInstance.Call<float>("getTemperature");
+
     SensorData data = new SensorData
     {
       isOnline = PluginInstance.Call<bool>("isHumidityOnline"),

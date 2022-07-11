@@ -12,7 +12,7 @@ public class WindowsKiwriousReader : IKiwriousReader {
     }
 
     public string GetConnectedSensorName() {
-        return "Android only";
+        return "Android only - N/A in Windows";
     }
 
     public SensorData GetConductivity()

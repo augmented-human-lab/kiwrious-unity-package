@@ -92,6 +92,7 @@ public class SerialReader : MonoBehaviour
     decodeMethods[SENSOR_TYPE.CARDIO] = DecodeCardio;
     decodeMethods[SENSOR_TYPE.THERMAL] = DecodeThermal;
     decodeMethods[SENSOR_TYPE.THERMAL2] = DecodeThermal2;
+
     if (autoStart)
     {
       StartSerialReader();
@@ -136,10 +137,15 @@ public class SerialReader : MonoBehaviour
 
   IEnumerator ScanPorts()
   {
+    Debug.Log("ScanPorts");
     while (listen)
     {
       yield return new WaitForSeconds(1);
+
+      Debug.Log("SerialPort.GetPortNames()");
       string[] ports = SerialPort.GetPortNames();
+      Debug.Log($"ports: {ports.Length}");
+
       if (ports.Length > connectedSerialPorts.Length)
       {
         string[] newDevices = ports.Where(p => !connectedSerialPorts.Contains(p)).ToArray();
